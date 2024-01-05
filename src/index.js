@@ -2,9 +2,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import App from './App';
-import './index.css';
+import rootReducer from './redux/reducers/rootReducer';
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: { /* Provide any extra arguments here if needed */ }
+      },
+    }),
+  // Add any enhancers you need here
+});
 
 ReactDOM.render(
   <Provider store={store}>
